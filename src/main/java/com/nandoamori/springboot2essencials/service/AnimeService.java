@@ -1,6 +1,7 @@
 package com.nandoamori.springboot2essencials.service;
 
 import com.nandoamori.springboot2essencials.domain.Anime;
+import com.nandoamori.springboot2essencials.exception.BadRequestException;
 import com.nandoamori.springboot2essencials.mapper.AnimeMapper;
 import com.nandoamori.springboot2essencials.repository.AnimeRepository;
 import com.nandoamori.springboot2essencials.requests.AnimePostRequestBody;
@@ -24,7 +25,7 @@ public class AnimeService {
     }
     public Anime findByIdOrThrowBadRequestException(Long id){
         return animeRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
+                .orElseThrow(() -> new BadRequestException("Anime not found"));
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody) {
