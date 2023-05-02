@@ -1,6 +1,7 @@
 package com.nandoamori.springboot2essencials.service;
 
 import com.nandoamori.springboot2essencials.domain.Anime;
+import com.nandoamori.springboot2essencials.mapper.AnimeMapper;
 import com.nandoamori.springboot2essencials.repository.AnimeRepository;
 import com.nandoamori.springboot2essencials.requests.AnimePostRequestBody;
 import com.nandoamori.springboot2essencials.requests.AnimePutRequestBody;
@@ -24,7 +25,7 @@ public class AnimeService {
     }
 
     public Anime save(AnimePostRequestBody animePostRequestBody) {
-        return animeRepository.save(Anime.builder().name(animePostRequestBody.getName()).build());
+        return animeRepository.save(AnimeMapper.INSTANCE.toAnime(animePostRequestBody));
     }
 
     public void delete(Long id) {
@@ -33,10 +34,8 @@ public class AnimeService {
 
     public void replace(AnimePutRequestBody animePutRequestBody) {
         Anime savedAnime = findByIdOrThrowBadRequestException(animePutRequestBody.getId());
-        Anime anime = Anime.builder()
-                .id(savedAnime.getId())
-                .name(animePutRequestBody.getName())
-                .build();
+        Anime anime = AnimeMapper.INSTANCE.toAnime(animePutRequestBody);
+        anime.setId(savedAnime.getId());
         animeRepository.save(anime);
     }
 }
