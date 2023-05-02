@@ -1,0 +1,14 @@
+version: '2.4'
+services:
+  db:
+    image: mysql
+    container_name: springBootEssentials
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - nandoamori_data:/var/lib/mysql
+
+volumes:
+  nandoamori_data:
