@@ -5,6 +5,7 @@ import com.nandoamori.springboot2essencials.requests.AnimePostRequestBody;
 import com.nandoamori.springboot2essencials.requests.AnimePutRequestBody;
 import com.nandoamori.springboot2essencials.service.AnimeService;
 import com.nandoamori.springboot2essencials.util.DateUtil;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class AnimeController {
         return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
     }
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody animePostRequestBody){
+    public ResponseEntity<Anime> save(@RequestBody @Valid AnimePostRequestBody animePostRequestBody){
         return new ResponseEntity<>(animeService.save(animePostRequestBody), HttpStatus.CREATED);
     }
     @DeleteMapping(path = "/{id}")
