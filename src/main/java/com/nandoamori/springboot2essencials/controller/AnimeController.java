@@ -29,6 +29,11 @@ public class AnimeController {
         log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
         return ResponseEntity.ok(animeService.listAll(pageable));
     }
+    @GetMapping(path = "/all")
+    public ResponseEntity<List<Anime>> listAll(){
+        log.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        return ResponseEntity.ok(animeService.listAllNonPageable());
+    }
     @GetMapping(path = "/find")
     public ResponseEntity<List<Anime>> findByName(@RequestParam(required = false) String name){
         return ResponseEntity.ok(animeService.findByName(name));
